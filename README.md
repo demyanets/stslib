@@ -1,0 +1,2 @@
+# stslib
+Standard TypeScript library
