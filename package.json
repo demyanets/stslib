@@ -1,6 +1,6 @@
 {
   "name": "stslib",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "scripts": {
     "ng": "ng",
     "clean": "rimraf ./dist",
@@ -11,7 +11,8 @@
     "test:watch": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:ci": "npm run clean && npm run test && npm run build:prod"
+    "build:ci": "npm run clean && npm run test && npm run build:prod",
+    "publish:lib": "cd dist && cd stslib && npm publish"
   },
   "private": true,
   "dependencies": {
