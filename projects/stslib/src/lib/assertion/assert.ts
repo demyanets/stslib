@@ -1,5 +1,7 @@
-export function assert(condition: any, msg?: string): asserts condition {
+import * as nodeAssert from 'assert';
+
+export function assert(condition: unknown, msg?: string): asserts condition {
   if (!condition) {
-    throw new Error(msg);
+    nodeAssert.fail(msg);
   }
 }

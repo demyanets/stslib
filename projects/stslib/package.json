@@ -1,6 +1,6 @@
 {
   "name": "stslib",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Standard TypeScript library",
   "author": "Taras Demyanets",
   "sideEffects": false,
