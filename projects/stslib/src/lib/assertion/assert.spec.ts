@@ -1,12 +1,17 @@
 import {assert} from './assert';
+import * as nodeAssert from 'assert';
 
 describe('assert', () => {
+  let stringOrNumber: string | number;
+
   it('should succeed', () => {
       assert(true);
       expect(true).toBeTrue();
   });
 
-  it('should trow exception', () => {
-    expect(() => assert(false)).toThrowError();
+  it('should narrow type', () => {
+    stringOrNumber = 'test';
+    assert(typeof stringOrNumber === 'string');
+    expect(typeof stringOrNumber).toEqual('string');
   });
 });
