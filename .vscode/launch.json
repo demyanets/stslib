@@ -1,0 +1,24 @@
+{
+  // Configuration accordingly to the official Angular-CLI support:
+  // https://github.com/angular/angular-cli/issues/17488
+  "version": "0.2.0",
+  "configurations": [
+      {
+        "name": "Debug unit tests",
+        "type": "chrome",
+        "request": "attach",
+        "address": "localhost",
+        "port": 9222,
+        "sourceMaps": true,
+        "webRoot": "${workspaceFolder}/projects/stslib",
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/*",
+          "./*": "${webRoot}/*",
+          "_karma_webpack_/*": "${webRoot}/*",
+          "/./~/*": "${workspaceFolder}/node_modules/*"
+        }
+      }
+  ]
+}
