@@ -1,4 +1,6 @@
-name: Node.js continuous deployment
+# This workflow will do a clean install of node dependencies, build the source code and publish the library to NPM
+
+name: deploy
 on:
   release:
     types: [created]
