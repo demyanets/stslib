@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tests
+/coverage
 /tmp
 /out-tsc
 # Only exists if Bazel was run
