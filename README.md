@@ -1,6 +1,7 @@
 [![build](https://github.com/demyanets/stslib/workflows/build/badge.svg)](https://github.com/demyanets/stslib/actions?query=workflow%3Abuild)
 [![test](https://github.com/demyanets/stslib/workflows/test/badge.svg)](https://github.com/demyanets/stslib/actions?query=workflow%3Atest)
-[![npm version](https://badge.fury.io/js/stslib.svg)](http://badge.fury.io/js/stslib)
+![coverage](https://github.com/demyanets/stslib/badges/coverage.svg)
+[![npm version](https://badge.fury.io/js/stslib.svg)](https://www.npmjs.com/package/stslib)
 
 # stslib
 Standard TypeScript library.
