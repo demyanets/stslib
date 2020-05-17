@@ -9,6 +9,10 @@ describe('assert', () => {
       expect(true).toBeTrue();
   });
 
+  it('should fail', () => {
+    expect(() => assert(false)).toThrow();
+  });
+
   it('should narrow type', () => {
     stringOrNumber = 'test';
     assert(typeof stringOrNumber === 'string');
