@@ -37,9 +37,8 @@ jobs:
       with:
         name: coverage
         path: coverage/
-
-    - name: Comment test coverage on commit
-      uses: jacobbowdoin/comment-test-coverage@1
+    - uses: actions/upload-artifact@v2
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        name: coverage-summary.json
         path: coverage/coverage-summary.json
+
