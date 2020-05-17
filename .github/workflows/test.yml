@@ -39,7 +39,7 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-    - run: npm ci
+    - run: npm ci --cache .npm
     - run: npm run test:ci
     - uses: actions/upload-artifact@v2
       with:
