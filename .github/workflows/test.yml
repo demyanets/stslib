@@ -47,4 +47,4 @@ jobs:
       uses: jacobbowdoin/comment-test-coverage@1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        path: coverage/coverage-summary.json
+        path: coverage/stslib/coverage-summary.json
