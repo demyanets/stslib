@@ -30,11 +30,13 @@ jobs:
 
     - run: npm ci
     - run: npm run test:ci
-    - uses: actions/upload-artifact@v2
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
       with:
         name: tests
         path: tests/
-    - uses: actions/upload-artifact@v2
+    - name: Upload coverage data
+      uses: actions/upload-artifact@v2
       with:
         name: coverage
         path: coverage/
@@ -54,7 +56,8 @@ jobs:
         git config --local user.name "GitHub Action"
         git commit -m "Badge update" -- badges
 
-    - uses: nelonoel/branch-name@v1
+    - name: Read current branch name
+      uses: nelonoel/branch-name@v1
     # Use branch name for whatever purpose
     - run: echo ${BRANCH_NAME}
     - name: Push changes
