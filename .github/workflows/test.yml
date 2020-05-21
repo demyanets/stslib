@@ -51,7 +51,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         path: coverage/stslib/coverage-summary.json
     - name: Commit coverage badges  on every branch except 'develop' or 'master'
-      if: {{ github.ref != 'ref/head/master' && github.ref != 'ref/head/develop' }}
+      if: github.ref != 'ref/head/develop'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -63,7 +63,7 @@ jobs:
     - run: echo ${BRANCH_NAME}
     - name: Push changes on every branch except 'develop' or 'master'
       uses: ad-m/github-push-action@master
-      if: {{ github.ref != 'ref/head/master' && github.ref != 'ref/head/develop' }}
+      if: github.ref != 'ref/head/develop'
       with:
         branch: ${{ env.BRANCH_NAME }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
