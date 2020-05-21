@@ -54,6 +54,13 @@ jobs:
 
     # Coverage badges will be updated on any branch except protected branches 'develop' and 'master'
     # and on pull requests
+    - name: Retrieve git diff stats
+      run: |
+        echo ::set-env name=GIT_DIFF_STATS::$(git diff @{upstream})
+    - run: echo $GIT_DIFF_STATS
+    - run: echo True
+      if: GIT_DIFF_STATS == ''
+
     - run: echo $GITHUB_REF
     - name: Commit coverage badges
       if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
