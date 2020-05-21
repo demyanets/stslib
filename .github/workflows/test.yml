@@ -58,7 +58,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Badge update" -- badges
+        git commit --allow-empty -m "Coverage badge update trigger" -- badges
     - name: Read current branch name
       if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master'
       uses: nelonoel/branch-name@v1
