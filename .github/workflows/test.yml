@@ -54,26 +54,21 @@ jobs:
 
     # Coverage badges will be updated on any branch except protected branches 'develop' and 'master'
     # and on pull requests
-    - name: Retrieve git diff stats
-      run: |
-        echo ::set-env name=GIT_DIFF_STATS::$(git diff @{upstream} | grep ".svg")
-    - run: echo $GIT_DIFF_STATS
-
     - run:   echo ::set-env name=GHA_COUNTER::$(git diff @{upstream} --numstat | grep ".svg" | wc -l)
-    - run: echo "There are differences!"
+    - run: echo "There are no differences!"
       if:  env.GHA_COUNTER == '0'
 
     - run: echo $GITHUB_REF
     - name: Commit coverage badges
-      if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
+      if: env.GHA_COUNTER != '0' && github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit --allow-empty -m "Coverage badge update trigger" -- badges
     - name: Read current branch name
-      if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
+      if: env.GHA_COUNTER != '0' && github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
       uses: nelonoel/branch-name@v1
     - run: echo ${BRANCH_NAME}
     - name: Push changes
-      if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
+      if: env.GHA_COUNTER != '0' && github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
       run: git push
