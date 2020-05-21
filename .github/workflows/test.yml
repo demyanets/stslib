@@ -52,7 +52,7 @@ jobs:
         path: coverage/stslib/coverage-summary.json
 
 
-    - run: echo github.ref
+    - run: echo ${github.ref}
       # Coverage badges will be updated on any branch except protected branches 'develop' and 'master'
       # and on pull requests
     - name: Commit coverage badges
