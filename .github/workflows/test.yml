@@ -75,7 +75,7 @@ jobs:
     - name: Commit coverage badges
       if: >
         env.SVG_DIFF_COUNTER != '0' &&
-        env.PROTECTED_BRANCH == 'true'
+        env.PROTECTED_BRANCH != 'true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -83,5 +83,5 @@ jobs:
     - name: Push changes
       if: >
         env.SVG_DIFF_COUNTER != '0' &&
-        env.PROTECTED_BRANCH == 'true'
+        env.PROTECTED_BRANCH != 'true'
       run: git push
