@@ -51,11 +51,6 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         path: coverage/stslib/coverage-summary.json
 
-  update-badge:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
     # Coverage badges will be updated on any branch except protected
     # branches 'develop' and 'master' and on a pull requests
     - name: Init protected branch flag
