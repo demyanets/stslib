@@ -59,9 +59,9 @@ jobs:
     - name: Set protected branch flag
       run: echo ::set-env name=PROTECTED_BRANCH::true;
       if: >
-        github.ref != 'ref/head/develop' &&
-        github.ref != 'ref/head/master' &&
-        startsWith(github.ref, 'refs/pull/') != true
+        github.ref == 'ref/head/develop' ||
+        github.ref == 'ref/head/master' ||
+        startsWith(github.ref, 'refs/pull/')
     - name: Print information about protected branch
       run: echo "This branch is protected!"
       if: env.PROTECTED_BRANCH == 'true'
