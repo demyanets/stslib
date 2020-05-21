@@ -59,13 +59,11 @@ jobs:
         echo ::set-env name=GIT_DIFF_STATS::$(git diff @{upstream} | grep ".svg")
     - run: echo $GIT_DIFF_STATS
 
-    - run:   echo ::set-output name=differences::$(git diff @{upstream} --numstat | grep ".svg" | wc -l)
-      id:    diffcounter
-      shell: bash
+    - run:   echo ::set-env name=GHA_COUNTER::$(git diff @{upstream} --numstat | grep ".svg" | wc -l)
     - run: echo "There are differences!"
-      if:  steps.diffcounter.outputs.differences == '0'
+      if:  env.GHA_COUNTER == '0'
 
-      - run: echo $GITHUB_REF
+    - run: echo $GITHUB_REF
     - name: Commit coverage badges
       if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master' && startsWith(github.ref, 'refs/pull/') != true
       run: |
