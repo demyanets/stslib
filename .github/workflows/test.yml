@@ -52,36 +52,36 @@ jobs:
         path: coverage/stslib/coverage-summary.json
 
 
-    # Coverage badges will be updated on any branch except protected branches 'develop' and 'master'
-    # and on pull requests
-    - name: Count SVG differences with origin
-      run: echo ::set-env name=GHA_COUNTER::$(git diff @{upstream} --numstat | grep ".svg" | wc -l)
+    # Coverage badges will be updated on any branch except protected
+    # branches 'develop' and 'master' and on a pull requests
+    - name: Init protected branch flag
+      run: echo ::set-env name=PROTECTED_BRANCH::false;
+    - name: Set protected branch flag
+      run: echo ::set-env name=PROTECTED_BRANCH::true;
+      if: >
+        github.ref != 'ref/head/develop' &&
+        github.ref != 'ref/head/master' &&
+        startsWith(github.ref, 'refs/pull/') != true
+    - name: Print information about protected branch
+      run: echo "This branch is protected!"
+      if: env.PROTECTED_BRANCH == 'true'
+
+    - name: Count SVG differences between local repo and origin
+      run: echo ::set-env name=SVG_DIFF_COUNTER::$(git diff @{upstream} --numstat | grep ".svg" | wc -l)
     - run: echo "There are no differences!"
-      if: env.GHA_COUNTER == '0'
+      if: env.SVG_DIFF_COUNTER == '0'
 
     - run: echo $GITHUB_REF
     - name: Commit coverage badges
       if: >
-        env.GHA_COUNTER != '0' &&
-        github.ref != 'ref/head/develop' &&
-        github.ref != 'ref/head/master' &&
-        startsWith(github.ref, 'refs/pull/') != true
+        env.SVG_DIFF_COUNTER != '0' &&
+        env.PROTECTED_BRANCH == 'true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit --allow-empty -m "Coverage badge update trigger" -- badges
-    - name: Read current branch name
-      if: >
-        env.GHA_COUNTER != '0' &&
-        github.ref != 'ref/head/develop' &&
-        github.ref != 'ref/head/master' &&
-        startsWith(github.ref, 'refs/pull/') != true
-      uses: nelonoel/branch-name@v1
-    - run: echo ${BRANCH_NAME}
+        git commit --allow-empty -m "Coverage badge update" -- badges
     - name: Push changes
       if: >
-        env.GHA_COUNTER != '0' &&
-        github.ref != 'ref/head/develop' &&
-        github.ref != 'ref/head/master' &&
-        startsWith(github.ref, 'refs/pull/') != true
+        env.SVG_DIFF_COUNTER != '0' &&
+        env.PROTECTED_BRANCH == 'true'
       run: git push
