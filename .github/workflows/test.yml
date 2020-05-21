@@ -62,9 +62,10 @@ jobs:
     - name: Read current branch name
       if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master'
       uses: nelonoel/branch-name@v1
+    - run: echo "github.ref:"
+    - run: echo ${github.ref}
+    - run: echo "BRANCH_NAME:"
+    - run: echo ${BRANCH_NAME}
     - name: Push changes
-      uses: ad-m/github-push-action@master
       if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master'
-      with:
-        branch: ${{ env.BRANCH_NAME }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      run: git push
