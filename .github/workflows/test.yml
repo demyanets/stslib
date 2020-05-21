@@ -50,20 +50,21 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         path: coverage/stslib/coverage-summary.json
-    - name: Commit coverage badges  on every branch except 'develop' or 'master'
-      if: github.ref != 'ref/head/develop'
+
+      # Coverage badges will be updated on any branch
+      # except protected branches 'develop' and 'master'
+    - name: Commit coverage badges
+      if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Badge update" -- badges
-
     - name: Read current branch name
+      if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master'
       uses: nelonoel/branch-name@v1
-    # Use branch name for whatever purpose
-    - run: echo ${BRANCH_NAME}
-    - name: Push changes on every branch except 'develop' or 'master'
+    - name: Push changes
       uses: ad-m/github-push-action@master
-      if: github.ref != 'ref/head/develop'
+      if: github.ref != 'ref/head/develop' && github.ref != 'ref/head/master'
       with:
         branch: ${{ env.BRANCH_NAME }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
