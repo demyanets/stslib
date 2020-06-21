@@ -51,42 +51,12 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         path: coverage/stslib/coverage-summary.json
 
+    # Coverage badges will be updated on any branch except protected
+    # branches 'develop' and 'master' and on a pull requests
     - name: Test angular action
       uses:  demyanets/angular-coverage-badges-action@master
       with:
         coverage-summary-path: coverage/stslib/coverage-summary.json
         protected-branches: '["master",  "develop"]'
-
-    # Coverage badges will be updated on any branch except protected
-    # branches 'develop' and 'master' and on a pull requests
-    - name: Init protected branch flag
-      run: echo ::set-env name=PROTECTED_BRANCH::false;
-    - name: Set protected branch flag
-      run: echo ::set-env name=PROTECTED_BRANCH::true;
-      if: >
-        github.ref == 'ref/head/develop' ||
-        github.ref == 'ref/head/master' ||
-        startsWith(github.ref, 'refs/pull/')
-    - name: Print information about protected branch
-      run: echo "This branch is protected!"
-      if: env.PROTECTED_BRANCH == 'true'
-
-    - name: Count SVG differences between local repo and origin
-      run: echo ::set-env name=SVG_DIFF_COUNTER::$(git diff @{upstream} --numstat | grep ".svg" | wc -l)
-    - run: echo "There are no differences!"
-      if: env.SVG_DIFF_COUNTER == '0'
-
-    - run: echo $GITHUB_REF
-    - name: Commit coverage badges
-      if: >
-        env.SVG_DIFF_COUNTER != '0' &&
-        env.PROTECTED_BRANCH != 'true'
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit --allow-empty -m "Coverage badge update" -- badges
-    - name: Push changes
-      if: >
-        env.SVG_DIFF_COUNTER != '0' &&
-        env.PROTECTED_BRANCH != 'true'
-      run: git push
+        badges-directory: badges
+        write-debug-logs: true
