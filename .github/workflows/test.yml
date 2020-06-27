@@ -58,5 +58,4 @@ jobs:
       with:
         coverage-summary-path: coverage/stslib/coverage-summary.json
         protected-branches: '["master", "develop"]'
-        badges-directory: badges
         write-debug-logs: true
