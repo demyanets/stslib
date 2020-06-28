@@ -57,5 +57,5 @@ jobs:
       uses:  demyanets/angular-coverage-badges-action@master
       with:
         coverage-summary-path: coverage/stslib/coverage-summary.json
-        protected-branches: '["master", "develop"]'
+        protected-branches: '["master",  "develop"]'
         write-debug-logs: true
