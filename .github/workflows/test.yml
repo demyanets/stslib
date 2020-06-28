@@ -58,4 +58,3 @@ jobs:
       with:
         coverage-summary-path: coverage/stslib/coverage-summary.json
         protected-branches: '["master",  "develop"]'
-        write-debug-logs: true
