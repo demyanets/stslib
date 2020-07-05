@@ -56,5 +56,7 @@ jobs:
     - name: Test angular action
       uses:  demyanets/angular-coverage-badges-action@master
       with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
         coverage-summary-path: coverage/stslib/coverage-summary.json
-        protected-branches: '["master",  "develop"]'
+        protected-branches: '["master",  "develop"]',
+        write-debug-logs: true
